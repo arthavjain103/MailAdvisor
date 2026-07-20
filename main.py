@@ -41,6 +41,10 @@ def main():
 
         # Build context from retrieved chunks
         context = "".join([doc for score, doc in results])
+        
+        print("=" * 100)
+        print(context)
+        print("=" * 100)
 
         print("Generating answer with Groq...")
 
@@ -56,9 +60,9 @@ def main():
 
         for rank, (score, doc) in enumerate(results, start=1):
             print(f"Rank {rank} | Score: {score:.4f}")
-            print(doc[:300])
+            print(f"Length: {len(doc)}")
+            print(doc)
             print("-" * 80)
-
 
 if __name__ == "__main__":
     main()
