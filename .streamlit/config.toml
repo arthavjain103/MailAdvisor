@@ -1,0 +1,11 @@
+[client]
+showErrorDetails = true
+
+[logger]
+level = "error"
+
+[server]
+fileWatcherType = "none"
+
+[deprecation]
+showPyarrowDeprecationWarnings = false
