@@ -218,6 +218,12 @@ TOP_K = 5                     # Number of chunks to retrieve
 - Cross-Encoder re-ranking for final refinement
 - Returns top 5 results
 
+## System Flowchart
+
+![MailAdvisor Flowchart](flowchart/mailadvisor.png)
+
+This image shows the end-to-end workflow of the project: document ingestion, hybrid retrieval, re-ranking, answer generation, and evaluation.
+
 ### LLM Integration
 
 - **Model**: Groq Llama 3.3 70B Versatile
