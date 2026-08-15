@@ -1,0 +1,24 @@
+[
+  {
+    "question": "What is SPF and why is it important for email deliverability?",
+    "reference": "SPF (Sender Policy Framework) is an email authentication method that allows a domain owner to specify which mail servers are allowed to send email for that domain. It helps prevent spoofing and improves trust with receiving mail servers. If SPF is missing or configured incorrectly, emails may be flagged as suspicious or rejected, which can harm deliverability."
+  },
+  {
+    "question": "How does DKIM improve inbox placement?",
+    "reference": "DKIM (DomainKeys Identified Mail) adds a cryptographic signature to outgoing emails. The receiving mail server verifies the signature against the sender's public key, which confirms that the message was not altered in transit and that it genuinely came from the sender's domain. DKIM improves trust and helps reduce spam filtering risks."
+  },
+  {
+    "question": "What is DMARC and how does it help with email security?",
+    "reference": "DMARC (Domain-based Message Authentication, Reporting, and Conformance) builds on SPF and DKIM. It tells receiving providers what to do when an email fails authentication and provides reporting to help domain owners monitor abuse. DMARC helps prevent impersonation, improves domain reputation, and supports better deliverability by making email sending more transparent and trusted."
+  },
+ 
+  {
+    "question": "How can I improve my email deliverability quickly?",
+    "reference": "To improve deliverability quickly, configure SPF, DKIM, and DMARC correctly, warm up the sending domain gradually, remove invalid addresses, reduce spam complaints, send to engaged recipients, and avoid triggering spam filters with excessive links, all-caps text, or misleading subject lines. Maintaining a clean list and monitoring bounce and complaint rates is also important."
+  },
+  {
+    "question": "What is email warm-up and why is it necessary?",
+    "reference": "Email warm-up is the process of gradually increasing sending volume from a new domain or IP address so that mailbox providers learn the sender's reputation. Warm-up helps avoid being classified as suspicious or spammy. It usually involves starting with low volume, sending to engaged recipients, and slowly increasing volume while monitoring reply, open, and complaint rates."
+  }
+]
+ 

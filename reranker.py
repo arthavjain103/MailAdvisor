@@ -8,7 +8,7 @@ class CrossEncoderReranker:
             "cross-encoder/ms-marco-MiniLM-L-6-v2"
         )
 
-    def rerank(self, query, documents, top_n=5):
+    def rerank(self, query, documents, top_n=3):
 
         pairs = [(query, doc) for doc in documents]
 
