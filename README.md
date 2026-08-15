@@ -6,6 +6,12 @@ An intelligent Retrieval-Augmented Generation (RAG) system designed to answer qu
 
 The Email RAG system processes PDF documents and allows users to query them through an intelligent Q&A interface. It combines multiple search strategies (keyword-based and semantic search) with advanced re-ranking and LLM-powered answer generation to provide accurate, contextual responses.
 
+## System Flowchart
+
+![MailAdvisor Flowchart](flowchart/mailadvisor.png)
+
+This image shows the end-to-end workflow of the project: document ingestion, hybrid retrieval, re-ranking, answer generation, and evaluation.
+
 ## Architecture
 
 ### System Components
@@ -217,12 +223,6 @@ TOP_K = 5                     # Number of chunks to retrieve
 - Reciprocal Rank Fusion for score aggregation
 - Cross-Encoder re-ranking for final refinement
 - Returns top 5 results
-
-## System Flowchart
-
-![MailAdvisor Flowchart](flowchart/mailadvisor.png)
-
-This image shows the end-to-end workflow of the project: document ingestion, hybrid retrieval, re-ranking, answer generation, and evaluation.
 
 ### LLM Integration
 
