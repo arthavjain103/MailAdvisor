@@ -59,6 +59,41 @@ email_rag/
 - **Local Storage**: BM25 model cached locally for efficient keyword search
 - **Vector Database**: Pinecone for scalable semantic search
 - **Structured Output**: Answers formatted as bullet points with no repetition
+- **RAG Evaluation**: Built-in Ragas benchmarking for answer quality, relevance, and context quality
+- **Benchmark Dataset**: Uses a curated email-related evaluation set to test the system on real use cases
+
+## RAG Evaluation
+
+This project includes a dedicated evaluation pipeline to measure the quality of the RAG system using Ragas.
+
+### What is being evaluated?
+
+- **Faithfulness**: whether the answer is supported by the retrieved context
+- **Answer Relevancy**: whether the response matches the user's query
+- **Context Precision**: whether the retrieved chunks are relevant
+- **Context Recall**: whether the key evidence needed for the answer is present
+
+### Evaluation workflow
+
+1. Load a benchmark set of domain questions
+2. Run the hybrid retrieval + reranking pipeline
+3. Generate an answer using the Groq LLM
+4. Store the question, retrieved contexts, response, and reference answer
+5. Run Ragas evaluation and inspect the metric scores
+
+### Run evaluation
+
+```bash
+python -m evaluation.eval_rag
+```
+
+The benchmark file is stored in:
+
+```text
+evaluation/test_questions.json
+```
+
+This gives a repeatable way to compare model and retrieval improvements over time.
 
 ## Installation
 
@@ -72,11 +107,13 @@ email_rag/
 ### Setup
 
 1. Clone the repository and navigate to the project directory:
+
 ```bash
 cd email_rag
 ```
 
 2. Create and activate a virtual environment:
+
 ```bash
 python -m venv venv
 # On Windows:
@@ -86,12 +123,14 @@ source venv/bin/activate
 ```
 
 3. Install dependencies:
+
 ```bash
 pip install langchain langchain-community langchain-pinecone langchain-huggingface langchain-groq
 pip install sentence-transformers pypdf pinecone python-dotenv rank-bm25 nltk
 ```
 
 4. Create a `.env` file with your API keys:
+
 ```env
 PINECONE_API_KEY=your_pinecone_api_key
 PINECONE_INDEX=your_pinecone_index_name
@@ -111,6 +150,7 @@ python ingest.py
 ```
 
 This will:
+
 - Load all PDFs from `docs2/` directory
 - Create document chunks
 - Generate and upload embeddings to Pinecone
@@ -125,11 +165,13 @@ python main.py
 ```
 
 Enter your questions at the prompt:
+
 ```
 Ask Question (type 'exit' to quit): How do I improve email deliverability?
 ```
 
 The system will:
+
 - Retrieve relevant document chunks
 - Generate a comprehensive answer
 - Display the answer and ranked source chunks
@@ -158,16 +200,19 @@ TOP_K = 5                     # Number of chunks to retrieve
 ### Search Strategies
 
 #### Keyword Search (BM25)
+
 - Local, fast retrieval based on term frequency
 - NLTK tokenization for preprocessing
 - Persisted to `data/bm25.pkl`
 
 #### Semantic Search
+
 - Vector similarity search via Pinecone
 - HuggingFace multilingual embeddings
 - Captures semantic meaning and context
 
 #### Hybrid Search
+
 - Combines BM25 and semantic results
 - Reciprocal Rank Fusion for score aggregation
 - Cross-Encoder re-ranking for final refinement
@@ -177,7 +222,7 @@ TOP_K = 5                     # Number of chunks to retrieve
 
 - **Model**: Groq Llama 3.3 70B Versatile
 - **Purpose**: Email deliverability expert
-- **Features**: 
+- **Features**:
   - Low temperature (0.1) for consistent results
   - Structured output with bullet points
   - Deduplication and merging of information
@@ -192,11 +237,15 @@ email_rag/
 ├── ingestion/          # Document processing
 ├── pro/                # Search implementations
 ├── llm/                # LLM integration
+├── evaluation/         # Ragas evaluation benchmark and runner
+│   ├── eval_rag.py     # Evaluation script
+│   └── test_questions.json # Sample benchmark questions
 ├── config.py           # Configuration
 ├── ingest.py           # Ingestion script
 ├── main.py             # Main application
 ├── reranker.py         # Re-ranking logic
 ├── .env                # Environment variables (not committed)
+├── requirements.txt    # Project dependencies
 └── README.md           # This file
 ```
 
@@ -210,8 +259,3 @@ email_rag/
 - **PyPDF**: PDF document loading
 - **rank-bm25**: BM25 keyword search implementation
 - **NLTK**: Natural language processing toolkit
-
-
-
-
-
