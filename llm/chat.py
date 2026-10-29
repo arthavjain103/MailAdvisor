@@ -2,14 +2,13 @@ from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from config import GROQ_API_KEY
+import os
 
 # Initialize Groq LLM
 llm = ChatGroq(
-    groq_api_key=GROQ_API_KEY,
-    model_name="llama-3.3-70b-versatile",
-    temperature=0.1
+    model="openai/gpt-oss-20b",
+    api_key=os.environ["GROQ_API_KEY"]
 )
-
 prompt = ChatPromptTemplate.from_template("""
 You are an Email Deliverability Expert and Email Writing Assistant.
 

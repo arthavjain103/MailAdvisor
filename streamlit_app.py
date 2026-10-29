@@ -11,8 +11,21 @@ from pro.keyword_based import KeywordSearchBM25
 from pro.semantic import SemanticSearch
 from pro.hybrid import CombinedSearch
 from llm.chat import generate_answer
+from cache import get_cached_response, store_in_cache
 
 st.set_page_config(page_title="Email RAG Search", layout="wide")
+
+
+def get_text(doc):
+    """doc str ho ya dict, usme se text nikal do."""
+    if isinstance(doc, str):
+        return doc
+    if isinstance(doc, dict):
+        for key in ("text", "content", "page_content", "chunk", "document"):
+            if key in doc:
+                return str(doc[key])
+        return str(doc)  # fallback
+    return str(doc)
 
 
 @st.cache_resource
@@ -64,7 +77,7 @@ st.sidebar.subheader("Retrieved Chunks")
 if st.session_state.search_results:
     for rank, (score, doc) in enumerate(st.session_state.search_results, start=1):
         with st.sidebar.expander(f"#{rank} — score: {score:.4f}"):
-            st.text(doc)
+            st.text(get_text(doc))
 else:
     st.sidebar.caption("No chunks yet. Search to see them here.")
 
@@ -88,13 +101,25 @@ else:
         st.rerun()
 
     if search_button and query:
-        with st.spinner("Searching..."):
-            results = st.session_state.hybrid_search.search(query=query, top_n=top_n)
-            st.session_state.search_results = results
-            context = "".join([doc for score, doc in results])
+   
+        cached = get_cached_response(query)
 
-        with st.spinner("Generating answer..."):
-            st.session_state.answer = generate_answer(query, context)
+        if cached:
+            st.session_state.answer = cached["response"]
+            st.session_state.search_results = None  
+            st.toast(f"Cache hit ({cached['match_type']}, sim={cached['similarity']:.2f})")
+        else:
+            with st.spinner("Searching..."):
+                results = st.session_state.hybrid_search.search(query=query, top_n=top_n)
+                st.session_state.search_results = results
+                context = "\n\n".join([get_text(doc) for score, doc in results])
+
+            with st.spinner("Generating answer..."):
+                answer = generate_answer(query, context)
+                st.session_state.answer = answer
+
+            if answer:
+                store_in_cache(query, answer, metadata={"source": "rag", "top_n": top_n})
     elif search_button and not query:
         st.warning("Please enter a query")
 

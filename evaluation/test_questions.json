@@ -1,24 +1,59 @@
 [
   {
-    "question": "What is SPF and why is it important for email deliverability?",
-    "reference": "SPF (Sender Policy Framework) is an email authentication method that allows a domain owner to specify which mail servers are allowed to send email for that domain. It helps prevent spoofing and improves trust with receiving mail servers. If SPF is missing or configured incorrectly, emails may be flagged as suspicious or rejected, which can harm deliverability."
+    "question": "What is the difference between a soft bounce and a hard bounce, and what action should be taken when a hard bounce occurs?",
+    "reference": "A soft bounce (SMTP code 4.X.X) is usually a temporary issue like a full mailbox. A hard bounce (SMTP code 5.X.X) is a permanent issue such as an invalid address, DMARC failure, or blocklist. When a hard bounce occurs, you should not resend the email; instead, immediately remove the address from your list or fix the root cause before sending to that domain again.",
+    "contexts": [
+      "content). SMTP codes start with 4.X.X. May succeed on retry, but repeated/content-related soft bounces are early warning signs of reputation risk.",
+      "Hard bounce 5.X.X Permanent issue (invalid address, DMARC/auth failure, blocklist, severe reputation issue). Do not resend; remove address or fix root cause (authentication config, blocklist delisting) before resuming sends to that domain"
+    ],
+    "metadata": {
+      "chunk_ids": [
+        "c1518111-631e-4d6a-b9ad-83ea1873ebbc",
+        "dd110e9a-0005-4d60-a80e-3a0d123755aa"
+      ],
+      "source": "docs2\\docs2.pdf"
+    }
   },
   {
-    "question": "How does DKIM improve inbox placement?",
-    "reference": "DKIM (DomainKeys Identified Mail) adds a cryptographic signature to outgoing emails. The receiving mail server verifies the signature against the sender's public key, which confirms that the message was not altered in transit and that it genuinely came from the sender's domain. DKIM improves trust and helps reduce spam filtering risks."
+    "question": "According to the CAN-SPAM Act guidelines, what are the key requirements for sending bulk marketing emails?",
+    "reference": "The CAN-SPAM requirements include: providing accurate and non-deceptive 'From'/'To'/routing information, using a non-misleading subject line, clearly identifying the email as an advertisement (if applicable), including a valid physical postal address (no PO boxes), providing a working and easily accessible unsubscribe mechanism, and honoring unsubscribe requests within 10 business days.",
+    "contexts": [
+      "CAN-SPAM (United States) Accurate, non-deceptive 'From'/'To'/routing information. Non-misleading subject line. Clear identification as an advertisement (if applicable). Valid physical postal address (no PO boxes). Working, easily accessible unsubscribe mechanism. Unsubscribe requests honored within 10 business days."
+    ],
+    "metadata": {
+      "chunk_ids": [
+        "73a1ee16-ce55-42af-96ee-1674985d691e"
+      ],
+      "source": "docs2\\docs2.pdf"
+    }
   },
   {
-    "question": "What is DMARC and how does it help with email security?",
-    "reference": "DMARC (Domain-based Message Authentication, Reporting, and Conformance) builds on SPF and DKIM. It tells receiving providers what to do when an email fails authentication and provides reporting to help domain owners monitor abuse. DMARC helps prevent impersonation, improves domain reputation, and supports better deliverability by making email sending more transparent and trusted."
+    "question": "Why is it considered a deliverability risk to render most or all of an email's text as images?",
+    "reference": "Rendering most or all text as images is a risk because ISPs monitor the text-to-image ratio to detect spam. Furthermore, it negatively impacts the size and format of the plain text version of the email.",
+    "contexts": [
+      "Rendering most/all text as images (ISPs track text-to-image ratio; also breaks the plain-text version)",
+      "Render all your text as images. ISPs monitor the ratio of text vs. images in an email. Furthermore rendering text as images impacts the size of the plain text version, too."
+    ],
+    "metadata": {
+      "chunk_ids": [
+        "7d6002b8-58bb-4bbe-a0c5-ba3c54405237",
+        "4b3db27a-bde2-4d2c-84a0-46f656c60060"
+      ],
+      "source": "docs2\\docs.pdf"
+    }
   },
- 
   {
-    "question": "How can I improve my email deliverability quickly?",
-    "reference": "To improve deliverability quickly, configure SPF, DKIM, and DMARC correctly, warm up the sending domain gradually, remove invalid addresses, reduce spam complaints, send to engaged recipients, and avoid triggering spam filters with excessive links, all-caps text, or misleading subject lines. Maintaining a clean list and monitoring bounce and complaint rates is also important."
-  },
-  {
-    "question": "What is email warm-up and why is it necessary?",
-    "reference": "Email warm-up is the process of gradually increasing sending volume from a new domain or IP address so that mailbox providers learn the sender's reputation. Warm-up helps avoid being classified as suspicious or spammy. It usually involves starting with low volume, sending to engaged recipients, and slowly increasing volume while monitoring reply, open, and complaint rates."
+    "question": "Can you provide an email template to politely decline a meeting request while keeping the door open for the future?",
+    "reference": "Subject: Re: Meeting with [Their Name]\n\nHi [First Name],\nThanks so much for reaching out. I truly appreciate your interest in connecting.\nUnfortunately, my bandwidth is limited right now as we're in the middle of [current project/season].\nThat said, I don’t want to leave things hanging—let’s reconnect in [timeframe] when things settle down.\nIn the meantime, feel free to reach out to [colleague/team member] who handles [relevant area] and may be able to help immediately.\nBest,\n[Your Name]",
+    "contexts": [
+      "Template 9: Declining a Meeting Politely\nSubject: Re: Meeting with [Their Name]\n\nHi [First Name],\nThanks so much for reaching out. I truly appreciate your interest in connecting.\nUnfortunately, my bandwidth is limited right now as we're in the middle of [current project/season].\nThat said, I don’t want to leave things hanging—let’s reconnect in [timeframe] when things settle down.\nIn the meantime, feel free to reach out to [colleague/team member] who handles [relevant area] and may be able to help immediately.\nBest,\n[Your Name]"
+    ],
+    "metadata": {
+      "chunk_ids": [
+        "99fd77cb-c48a-4446-88cc-b41a16029044"
+      ],
+      "source": "docs2\\email.pdf",
+      "template_type": "Declining a Meeting Politely"
+    }
   }
 ]
- 
