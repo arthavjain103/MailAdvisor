@@ -226,7 +226,7 @@ TOP_K = 5                     # Number of chunks to retrieve
 
 ### LLM Integration
 
-- **Model**: Groq Llama 3.3 70B Versatile
+- **Model**: GPT OSS 
 - **Purpose**: Email deliverability expert
 - **Features**:
   - Low temperature (0.1) for consistent results
