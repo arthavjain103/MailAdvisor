@@ -1,6 +1,6 @@
 # Email RAG System
 
-An intelligent Retrieval-Augmented Generation (RAG) system designed to answer questions about email content and documents using hybrid search and large language models.
+An intelligent Retrieval-Augmented Generation (RAG) system designed to answer questions about email deliverability like dkim auth , spf configuration and spam issues and suggest also the best email templates according to different categories documents using hybrid search and large language models.
 
 ## Project Overview
 
