@@ -79,6 +79,60 @@ This project includes a dedicated evaluation pipeline to measure the quality of 
 - **Context Precision**: whether the retrieved chunks are relevant
 - **Context Recall**: whether the key evidence needed for the answer is present
 
+## Redis Semantic Cache Testing
+
+The project includes automated tests for Redis-based caching to validate cache storage, retrieval, and query matching behavior.
+
+### What Is Tested?
+
+- **Exact Cache Hit:** Verifies that an identical query retrieves its cached response.
+- **Semantic Cache Hit:** Tests whether a semantically similar query retrieves an existing cached response, when supported by the configured similarity threshold.
+- **Cache Miss:** Verifies that a query without a suitable cached match returns no result.
+- **Cache Clearing:** Ensures cached entries can be cleared using the configured cache-key prefix.
+- **Redis Integration:** Tests cache operations against a running Redis instance using database 15.
+
+### Run Cache Tests
+
+Run unit tests:
+
+```bash
+python -m pytest tests/test_cache.py -v
+```
+
+Run Redis integration tests on Windows PowerShell:
+
+```powershell
+$env:CACHE_TEST_REDIS = "1"
+python -m pytest tests/test_cache_integ.py -v
+```
+
+Run query-matching tests:
+
+```bash
+python -m pytest tests/test_query.py -v
+```
+
+Run all cache tests:
+
+```bash
+python -m pytest tests/test_cache.py tests/test_cache_integ.py tests/test_query.py -v
+```
+
+Redis must be running locally before executing integration tests.
+
+### Cache Benchmarking
+
+The project also includes a benchmark script for measuring exact-lookup and cache-miss latency at different cache sizes.
+
+Run the benchmark on Windows PowerShell:
+
+```powershell
+$env:CACHE_BENCHMARK = "1"
+python tests/benchmarks.py
+```
+
+Benchmark results depend on the local environment and test configuration. They should be treated as preliminary measurements rather than production performance guarantees.
+
 ### Evaluation workflow
 
 1. Load a benchmark set of domain questions
